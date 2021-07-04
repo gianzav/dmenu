@@ -640,9 +640,9 @@ setup(void)
 				if (INTERSECT(x, y, 1, 1, info[i]))
 					break;
 
-		x = info[i].x_org + dmx;
-		y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
 		mw = (dmw>0 ? dmw : info[i].width);
+		x = info[i].x_org + dmx - mw/2;
+		y = info[i].y_org + (topbar ? dmy : info[i].height - mh - dmy);
 		XFree(info);
 	} else
 #endif
@@ -650,9 +650,9 @@ setup(void)
 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
 			die("could not get embedding window attributes: 0x%lx",
 			    parentwin);
-		x = dmx;
-		y = topbar ? dmy : wa.height - mh - dmy;
 		mw = (dmw>0 ? dmw : wa.width);
+		x = dmx - mw/2;
+		y = topbar ? dmy : wa.height - mh - dmy;
 	}
 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
 	inputw = MIN(inputw, mw/3);
